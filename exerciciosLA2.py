@@ -105,6 +105,9 @@ print(aloca(prefs))
 print(aloca(prefs2))
 
 
+def funteste(x):
+    return x
 
+    
 
 
