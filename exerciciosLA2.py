@@ -107,7 +107,8 @@ print(aloca(prefs2))
 
 def funteste(x):
     return x
+def funteste2(x):
+    return x
 
-    
 
 
