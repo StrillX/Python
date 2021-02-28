@@ -62,6 +62,9 @@ def frequencia(texto):
     
 
 print(frequencia(texto))
+
+
+
 palavra = 'amanha'
 def repete(palavra,n):
     final = ''
@@ -104,7 +107,65 @@ def aloca(prefs):
 print(aloca(prefs))
 print(aloca(prefs2))
 
+livros = {
+                "Todos os nomes":"9789720047572",
+                "Ensaio sobre a cegueira":"9789896604011",
+                "Memorial do convento":"9789720046711",
+                "Os cus de Judas":"9789722036757"
+            }
+
+def isbn (livros):
+
+    invalidos  = []
+    for nome in livros:
+        soma = 0 
+        for i in range(13):
+            if i % 2 == 0:
+                soma += int(livros[nome][i])
+            else:
+                soma += 3*(int(livros[nome][i]))
+        if soma % 10 != 0 :
+            invalidos.append(nome) 
+            
+    return sorted(invalidos)
+
+
+print(isbn(livros))
+
+
+
+log = [("****1234********","maria@mail.pt"),
+                   ("0000************","ze@gmail.com"),
+                   ("****1111****3333","ze@gmail.com")]
+
+
+
+def hacker (log):
+    dados = {}
+    for num_cartao , email in log:
+        if email not in dados:
+            dados[email]= list(num_cartao)
+        else:
+            for i in range(16):
+                if num_cartao[i] != '*' :
+                    dados[email][i] = num_cartao[i]
+    
+    nconhecidos= {}
+    for email in dados:
+        nconhecidos[email] = 0
+        for i in range(16):
+            if dados[email][i] != '*':
+                nconhecidos[email] += 1
 
 
 
 
+    lista = [(k, v) for v,k in dados.items()]
+    lista = [("".join(numeros),email) for numeros,email in lista]
+  
+    lista.sort(key = lambda t:  t[1])
+ 
+    lista.sort(key = lambda t:  nconhecidos[t[1]], reverse = True)
+   
+    return lista
+print(hacker(log))
