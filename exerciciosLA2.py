@@ -213,3 +213,50 @@ def cruzamentos(ruas):
     tuplofinal.sort(key = lambda t : t[1])
     return tuplofinal
 print(cruzamentos(ruas))
+
+jogos = [("Benfica",3,"Porto",2),("Benfica",0,"Sporting",0),("Porto",4,"Benfica",1),("Sporting",2,"Porto",2)]
+
+def tabela (jogos):
+    #Criamos uma classificacao
+    classificacao = {}
+    for equipa1, golos1, equipa2,golos2 in jogos:
+        #Percorremos os jogos que nos sao dados
+        
+        #Adicionamos a equipa caso ela nao esteja na classificacao
+        if equipa1 not in classificacao:
+            #Vamos ter duas informacoes para cada equipa, o numero de pontos e a diferença de golos
+            classificacao[equipa1] = [0,0]
+        if equipa2 not in classificacao:
+            #Vamos ter duas informacoes para cada equipa, o numero de pontos e a diferença de golos
+            classificacao[equipa2] = [0,0]
+
+        #Damos update nas classificacoes
+        #Calculamos quem ganha e a diferença de golos
+        resultado = golos1-golos2
+
+        if resultado > 0 :
+            classificacao[equipa1][0] += 3
+        elif resultado < 0:
+            classificacao[equipa2][0] += 3
+        else:
+            classificacao[equipa1][0] += 1
+            classificacao[equipa2][0] += 1
+        #Aqui adicionamos a diferença de golos
+        classificacao[equipa1][1] = resultado
+        classificacao[equipa2][1] = -resultado
+        #Formatamos a informacao
+    classificacao_final = list(classificacao.items())
+    #Sort pelo criterio terciario - NOME
+    classificacao_final.sort(key= lambda t: t[0])
+    #Sort pelo criterio secundario - Dif de golos - Descendente
+    classificacao_final.sort(key= lambda t: t[1][1], reverse=True)
+    #Sort pelo criterio primario - Numero de pontos - Descendente
+    classificacao_final.sort(key= lambda t: t[1][0], reverse=True)
+
+    
+    classificacao_final = [(x,y[0]) for x, y in classificacao_final]
+    
+    return classificacao_final
+print (tabela(jogos))
+
+        
