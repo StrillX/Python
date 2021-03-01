@@ -16,9 +16,11 @@ nomes = [
         
     
 def  apelidos(nomes):
-
+    #Criamso uma list com todos os nomes
     final = [nome for nome in nomes]
+    #Damos sort pelo criterio secundario -  Ordem Alfabetica
     final.sort(key = lambda final: final )
+    #Damos sort pelo criterio primario -  Numero de nomes 
     final.sort(key = lambda final: len(final.split()) )
     
     return final
@@ -28,22 +30,24 @@ print(apelidos(nomes))
 
 
 def factoriza(n):
+    #Criamos um array para colocar cada fator que nao se repita 
     fatores_primos = []
-
+    #Dividimos o numero por dois ate nao ser possivel
     while n % 2 == 0:
         if 2 not in fatores_primos:
             fatores_primos.append(2)
         n = n / 2
 
-
+    #Verificamos todos os numeros ate a sqrt de n em procura de fatores primos
     for i in range(3, int(math.sqrt(n) + 1),2):
         while n % i == 0:
             if i not in fatores_primos:
                 fatores_primos.append(i)
             n = n / i
-
+    #Garantimos que o proprio numero nao é primo
     if n > 2:
         fatores_primos.append(int(n))
+    #Somamos todos os fatores
     res = sum(fatores_primos)
     return res
 
@@ -51,11 +55,13 @@ print(factoriza(28))
 
 texto = "o tempo perguntou ao tempo quanto tempo o tempo tem"
 def frequencia(texto):
+    #Dividimos o texto em palavras
     string = texto.split()
+    #Ordenamos as palavras por ordem alfabetica
     string.sort()
-    
+    #Utilizamos um counter para contar as ocorrencias de cada palavra
     cnt = Counter(string).most_common()
-    
+    #apresentamos os dados da forma pedida
     final= [key for key,value in cnt]
         
     return final
@@ -64,7 +70,7 @@ def frequencia(texto):
 print(frequencia(texto))
 
 
-
+#Aparentemente nao esta com deve ser tem que truncar certas letras
 palavra = 'amanha'
 def repete(palavra,n):
     final = ''
@@ -83,22 +89,26 @@ prefs2  = {30000:[1],20000:[2],10000:[3]}
 
 def aloca(prefs):
     sprefs={}
-
+    #Damos sort pelo numero de aluno
     sorted_keys = sorted(prefs.keys())
+    #Criamos um array com todos os trabalhos que tem um aluno associado
     used = []
-    
+    #Colocamos as preferencias num dicionario ordenado
     for i in sorted_keys:
         sprefs[i] = prefs[i]
-
+    #Criamos uma list com os alunos que ficam alocados
     alocados = []
-
+    #Percorremos os valores do dicionario ordenado
     for k in sprefs:
         for v in sprefs[k]:
             if v not in used:
+                #Se o aluno quiser um trabalho disponivel esse trabalho passa a ocupado e o aluno fica com um trabalho atribuido
                 used.append(v)
                 alocados.append(k)
                 break
+    #pegamos numa lista com todos os alunos
     todos   =   [key for key in sprefs]   
+    #E colocamos numa lista todos os alunos que nao tem um trabalho atribuido
     res     =   [x for x in todos if x not in alocados] 
     return res
     
@@ -115,18 +125,20 @@ livros = {
             }
 
 def isbn (livros):
-
+    
     invalidos  = []
     for nome in livros:
         soma = 0 
+        #Verificaçao se o isbn é válido 
         for i in range(13):
             if i % 2 == 0:
                 soma += int(livros[nome][i])
             else:
                 soma += 3*(int(livros[nome][i]))
+        #Se for invalido adicionamos à lista de invalidos
         if soma % 10 != 0 :
             invalidos.append(nome) 
-            
+    #Retornamos  a lista dos nomes ordenados 
     return sorted(invalidos)
 
 
@@ -141,15 +153,19 @@ log = [("****1234********","maria@mail.pt"),
 
 
 def hacker (log):
+    #Criamos um dicionario para armazenar os numeros de cartao e emails
     dados = {}
+    #Percorremos o log
     for num_cartao , email in log:
+        #Se o email nao estiver no dicionario dados adicionamolo e guardamos o num_cartao associado
         if email not in dados:
             dados[email]= list(num_cartao)
         else:
+        #Se o email ja esta no dados vamos comparar o num do cartao e vamos adicionar a nova informaçao ao numero
             for i in range(16):
                 if num_cartao[i] != '*' :
                     dados[email][i] = num_cartao[i]
-    
+    # Aqui associamos os emails com o numero de numeros descobertos
     nconhecidos= {}
     for email in dados:
         nconhecidos[email] = 0
@@ -159,13 +175,41 @@ def hacker (log):
 
 
 
-
+    #Formatar a informaçao para a resposta
     lista = [(k, v) for v,k in dados.items()]
     lista = [("".join(numeros),email) for numeros,email in lista]
-  
+    #Criterio secundario de email por rodem alfabetica
     lista.sort(key = lambda t:  t[1])
- 
+    #Queremos ordenar por o n de digitos conhecidos como criterio primario
     lista.sort(key = lambda t:  nconhecidos[t[1]], reverse = True)
    
     return lista
 print(hacker(log))
+
+ruas = ["raio","central","liberdade","chaos","saovictor","saovicente","saodomingos","souto","capelistas","anjo","taxa"]
+
+def cruzamentos(ruas):
+    #Criamos um dicionario em que vamos colocar as keys como sendo 
+    #o nome dos cruzamentos e os values como sendo o numero de ruas que vao ter a esse cruzamento
+    ncruzamentos = {}
+    for cruzamento in ruas:
+        #Inserimos o primeiro cruzamento de ele nao estiver no ncruzamentos
+        if cruzamento[0] not in ncruzamentos:
+            ncruzamentos[cruzamento[0]] = 1
+        #Caso ja exista somamos uma ocorrencia
+        else:
+            ncruzamentos[cruzamento[0]] += 1
+        #Adicionamos o segundo cruzamento
+        if cruzamento[-1] not in ncruzamentos:
+            ncruzamentos[cruzamento[-1]] = 1
+        #Garantimos que o cruzamento nao começa e acaba em si proprio
+        elif cruzamento[0] != cruzamento[-1]:
+            ncruzamentos[cruzamento[-1]] += 1
+    #Tornamos a informaçao de um dicionario para uma lista de tuplos
+    tuplofinal = list(ncruzamentos.items())
+    #Como o criterio da ordem alfabetica é apenas de desempate utilizamos esse primeiro
+    tuplofinal.sort(key = lambda t : t[0])
+    #Agora damos sort pelo numero de cruzamentos
+    tuplofinal.sort(key = lambda t : t[1])
+    return tuplofinal
+print(cruzamentos(ruas))
