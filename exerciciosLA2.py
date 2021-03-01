@@ -259,4 +259,53 @@ def tabela (jogos):
     return classificacao_final
 print (tabela(jogos))
 
-        
+
+
+comandos = "EEAADAAAAAADAAAADDDAAAHAAAH"
+def robot (comandos):
+    #Lista onde aparecerao os vertices do retangulo
+    lista_final=[]
+    #Coordenandas do retangulo
+    retangulo = [0,0,0,0]
+    #Utilizamos uma variavel para sabermos a rotaçao do robot
+    rotaçao = 0
+    #Variaveis para calcular as posicoes
+    x = y = 0
+    for instruçao in comandos:
+        #Roda para a esquerda
+        if instruçao == "E":
+            rotaçao -= 1
+        #Roda para a direita
+        elif instruçao == "D":
+            rotaçao += 1
+        #Avança
+        elif instruçao == "A":
+            #Virado para cima - y positivo
+            if rotaçao % 4 == 0:
+                y += 1
+                retangulo[3] = max(y,retangulo[3])
+            #Virado para a direita - x positivo
+            if rotaçao % 4 == 1:
+                x += 1
+                retangulo[2] = max(x,retangulo[2])
+            #Virado para baixo - y negativo
+            if rotaçao % 4 == 2:
+                y -= 1
+                retangulo[1] = min(y,retangulo[1])
+            #Virado para a esquerda - x negativo
+            if rotaçao % 4 == 3:
+                x -= 1
+                retangulo[0] = min(x,retangulo[0])
+        #Guarda posicao
+        elif instruçao == "H":
+            #Adicionamos o retangulo à lista
+            lista_final.append(tuple(retangulo))
+            #Reset no robot
+            rotaçao = 0
+            x = y = 0
+            retangulo=[0,0,0,0]
+
+            
+    return lista_final
+print(robot(comandos))
+
