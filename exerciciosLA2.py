@@ -70,17 +70,32 @@ def frequencia(texto):
 print(frequencia(texto))
 
 
-#Aparentemente nao esta com deve ser tem que truncar certas letras
+
 palavra = 'amanha'
 def repete(palavra,n):
-    final = ''
+    #Contar o numero de letras no inicio da palavra que coincidem com as letras no final
+    #Ex: aaabcaaa com um repete 2 ficaria aaabcaaabcaaa
+    nrepetidos = 0
+    indice=1
+    for letra in range(len(palavra)//2):
+        if palavra[letra] == palavra[-indice]:
+            nrepetidos +=1;
+        
+        indice +=1
+    print(nrepetidos)
+
+
+    final = palavra
+    n-=1
+    
     while n > 0:
-        final += palavra 
+         
         n -= 1
+        #apenas repetimos a partir do n repetidos, pois evitamos repeticoes de letras
+        final += palavra[nrepetidos:]
 
     return final
 print(repete(palavra,2))
-
 
 
 prefs   = {10885:[1,5],40000:[5],10000:[1,2]}
