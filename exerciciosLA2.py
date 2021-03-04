@@ -230,7 +230,7 @@ def cruzamentos(ruas):
 print(cruzamentos(ruas))
 
 jogos = [("Benfica",3,"Porto",2),("Benfica",0,"Sporting",0),("Porto",4,"Benfica",1),("Sporting",2,"Porto",2)]
-
+jogos2 = [("Benfica",3,"Porto",2),("Benfica",0,"Sporting",0),("Porto",2,"Benfica",1),("Sporting",2,"Porto",2)]
 def tabela (jogos):
     #Criamos uma classificacao
     classificacao = {}
@@ -257,23 +257,24 @@ def tabela (jogos):
             classificacao[equipa1][0] += 1
             classificacao[equipa2][0] += 1
         #Aqui adicionamos a diferença de golos
-        classificacao[equipa1][1] = resultado
-        classificacao[equipa2][1] = -resultado
+        classificacao[equipa1][1] += resultado
+        classificacao[equipa2][1] += -resultado
         #Formatamos a informacao
     classificacao_final = list(classificacao.items())
+
     #Sort pelo criterio terciario - NOME
     classificacao_final.sort(key= lambda t: t[0])
     #Sort pelo criterio secundario - Dif de golos - Descendente
     classificacao_final.sort(key= lambda t: t[1][1], reverse=True)
     #Sort pelo criterio primario - Numero de pontos - Descendente
     classificacao_final.sort(key= lambda t: t[1][0], reverse=True)
-
+    print(classificacao_final)
     
     classificacao_final = [(x,y[0]) for x, y in classificacao_final]
     
     return classificacao_final
 print (tabela(jogos))
-
+print (tabela(jogos2))
 
 
 comandos = "EEAADAAAAAADAAAADDDAAAHAAAH"
