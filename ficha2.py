@@ -4,7 +4,11 @@ area1 = [           "..*..",
                     "*...*",
                     ".*.*.",
                     "..*.."]
-
+area2 = ["..*..",
+                    ".*.*.",
+                    "*....",
+                    ".*.*.",
+                    "..*.."]
 '''
 
 Implemente uma função que calcula a área de um mapa que é acessível por
@@ -25,8 +29,9 @@ def area(ponto, mapa):
         #Criamos uma queue para guardar os proximas posicoes a verificar
         while queue:
             x, y = queue.pop(0)
+            #Criamos um visitados para saber os pontos que foram visitados
             visitados.add((x,y))
-
+            
             adjacencia(x, y, mapa, visitados, queue)
 
 
@@ -42,4 +47,10 @@ def adjacencia(x, y, mapa, visitados, queue):
             queue.append((x , y + i))
     return queue
 
-print(area((3,2),area1))
+
+#Outputs parecem estar de acordo com a resoluçao do stor
+print(area((3,2),area1))    #Output - 5
+
+print(area((3,2),area2))    #Output - 12
+
+
