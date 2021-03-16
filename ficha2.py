@@ -120,16 +120,26 @@ vizinhos = [["Portugal","Espanha"],["Espanha","França"],["França","Bélgica","
 vizinhos2 = [["Portugal","Espanha"],["Espanha","França"]]
 
 def continente(fronteiras):
+    #Essencial para a recursividade mais à frente
+    #Verificamos se o input nao é vazio
+    if fronteiras == []:
+        return 0
     
+
+    #
     tamanhoContinente = 0
     visitados = []
+
+
     lista = fronteiras
     lista.sort(key= lambda a : len(a),reverse=True)
 
-    print(lista)
+    #Em principio o maior continente tera o pais com mais fronteiras
+    #Dai nos ordenarmos a lista pelo numero de fronteiras
     visitados = lista[0]
     tamanhoContinente = 0
 
+    #Pegamos em todos os paises que obtivemos anteriormente e adicionamos os paises que fazem fronteira com estes
 
     for pais in lista[0]:
         for fronteira in lista[1:]:
@@ -140,9 +150,12 @@ def continente(fronteiras):
 
 
     
-
+    #Verificamos se nao existem continentes com apenas pares de fronteiras que sejam maiores
+    #Ex.: [["Portugal","Espanha"],["Canada","Estados Unidos"]["Estados Unidos","México"]]
+    #Dado este input a funcao , sem o segmento de baixo, iria dar um output de 2, quando deveria dar 3
     tamanhoContinente = len(visitados)
-  
+    if continente(lista[1:]) > tamanhoContinente:
+        tamanhoContinente = continente(lista[1:])
                 
                  
 
