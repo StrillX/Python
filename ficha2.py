@@ -118,6 +118,7 @@ A função deverá devolver o tamanho do maior continente.
 '''
 vizinhos = [["Portugal","Espanha"],["Espanha","França"],["França","Bélgica","Alemanha","Luxemburgo"],["Canada","Estados Unidos"]]
 vizinhos2 = [["Portugal","Espanha"],["Espanha","França"]]
+vizinhos3 = [["Portugal","Espanha"],["Canada","Estados Unidos"],["Estados Unidos","México"]]
 
 def continente(fronteiras):
     #Essencial para a recursividade mais à frente
@@ -126,7 +127,7 @@ def continente(fronteiras):
         return 0
     
 
-    #
+    #Iniciamos o tamanho do continente e os visitados
     tamanhoContinente = 0
     visitados = []
 
@@ -148,8 +149,6 @@ def continente(fronteiras):
                     if outro_pais not in visitados:
                         visitados.append(outro_pais)
 
-
-    
     #Verificamos se nao existem continentes com apenas pares de fronteiras que sejam maiores
     #Ex.: [["Portugal","Espanha"],["Canada","Estados Unidos"]["Estados Unidos","México"]]
     #Dado este input a funcao , sem o segmento de baixo, iria dar um output de 2, quando deveria dar 3
@@ -157,11 +156,6 @@ def continente(fronteiras):
     if continente(lista[1:]) > tamanhoContinente:
         tamanhoContinente = continente(lista[1:])
                 
-                 
-
-    
-    
-
 
     return tamanhoContinente
 
@@ -175,6 +169,7 @@ def continente(fronteiras):
 
 print(continente(vizinhos))
 print(continente(vizinhos2))
+print(continente(vizinhos3))
 
     
 
