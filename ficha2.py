@@ -107,4 +107,64 @@ def erdos(artigos,n):
 print(erdos(artigos,2))
 
 
+'''
+
+O objectivo deste problema é determinar o tamanho do maior continente de um planeta.
+Considera-se que pertencem ao mesmo continente todos os países com ligação entre si por terra. 
+Irá receber uma descrição de um planeta, que consiste numa lista de fronteiras, onde cada fronteira
+é uma lista de países que são vizinhos entre si. 
+A função deverá devolver o tamanho do maior continente.
+
+'''
+vizinhos = [["Portugal","Espanha"],["Espanha","França"],["França","Bélgica","Alemanha","Luxemburgo"],["Canada","Estados Unidos"]]
+vizinhos2 = [["Portugal","Espanha"],["Espanha","França"]]
+
+def continente(fronteiras):
+    
+    tamanhoContinente = 0
+    visitados = []
+    lista = fronteiras
+    lista.sort(key= lambda a : len(a),reverse=True)
+
+    print(lista)
+    visitados = lista[0]
+    tamanhoContinente = 0
+
+
+    for pais in lista[0]:
+        for fronteira in lista[1:]:
+            if pais in fronteira:
+                for outro_pais in fronteira:
+                    if outro_pais not in visitados:
+                        visitados.append(outro_pais)
+
+
+    
+
+    tamanhoContinente = len(visitados)
+  
+                
+                 
+
+    
+    
+
+
+    return tamanhoContinente
+
+
+
+    
+
+  
+
+
+
+print(continente(vizinhos))
+print(continente(vizinhos2))
+
+    
+
+
+
 
