@@ -210,3 +210,8 @@ def saltos(o,d):
 
 print("Saltos")
 print(saltos( (0,0) , (7,7) ))
+
+
+def viagem (rotas,o,d):
+
+    
