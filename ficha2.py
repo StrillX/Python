@@ -116,7 +116,7 @@ Irá receber uma descrição de um planeta, que consiste numa lista de fronteira
 A função deverá devolver o tamanho do maior continente.
 
 '''
-vizinhos = [["Portugal","Espanha"],["Espanha","França"],["França","Bélgica","Alemanha","Luxemburgo"],["Canada","Estados Unidos"]]
+vizinhos =  [["Portugal","Espanha"],["Espanha","França"],["França","Bélgica","Alemanha","Luxemburgo"],["Canada","Estados Unidos"]]
 vizinhos2 = [["Portugal","Espanha"],["Espanha","França"]]
 vizinhos3 = [["Portugal","Espanha"],["Canada","Estados Unidos"],["Estados Unidos","México"]]
 
@@ -171,8 +171,42 @@ print(continente(vizinhos))
 print(continente(vizinhos2))
 print(continente(vizinhos3))
 
+
+
+
+'''
+O objectivo deste problema é determinar quantos movimentos são necessários para 
+movimentar um cavalo num tabuleiro de xadrez entre duas posições.
+A função recebe dois pares de coordenadas, que identificam a origem e destino pretendido,
+devendo devolver o número mínimo de saltos necessários para atingir o destino a partir da origem.
+Assuma que o tabuleiro tem tamanho ilimitado.
+'''
+
+#o é um ponto, ou seja tem a forma o=(x,y)
+def saltos(o,d):
+
+    if o == d:
+        return 0
+
+    estrutura = [(o[0],o[1],0)]
+    visitados = set()
+
+    
+    while(estrutura):
+        x , y, nsaltos = estrutura.pop(0)
+        visitados.add((x,y))
+        
+
+        for xMais in [-1,1]:
+            for yMais in [-1,1]:
+                if  (x + xMais,y + yMais * 2) == d or (x + xMais * 2,y + yMais) == d:
+                    return nsaltos + 1
+                if  (x + xMais,y + yMais * 2)   not in  visitados:
+                    estrutura.append((x + xMais,y + yMais * 2,nsaltos + 1))
+                if  (x + xMais * 2,y + yMais)   not in  visitados:
+                    estrutura.append((x + xMais * 2,y + yMais,nsaltos+1))
+
     
 
-
-
-
+print("Saltos")
+print(saltos( (0,0) , (7,7) ))
